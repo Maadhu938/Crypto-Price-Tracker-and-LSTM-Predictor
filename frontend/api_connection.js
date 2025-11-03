@@ -3,6 +3,10 @@ const pageNumber = document.getElementById("page-number");
 const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
 
+const modelSelect = document.getElementById("model-select"); // Assumes you add this <select> in HTML
+const predictBtn = document.getElementById("predict-btn");
+const result = document.getElementById("prediction-result");
+
 let currentPage = 1;
 const maxPage = 50; // CoinGecko's API limit
 
@@ -79,33 +83,42 @@ nextBtn.onclick = () => {
 };
 
 fetchData(currentPage);
-
 setInterval(() => fetchData(currentPage), 120000);
 
-
-// ------------ Bitcoin Prediction -------------
-
-const predictBtn = document.getElementById("predict-btn");
-const result = document.getElementById("prediction-result");
-
 predictBtn.addEventListener("click", async () => {
+  const selectedModel = modelSelect.value; // get selected model from dropdown
+  let endpoint = "";
+
+  if(selectedModel === "lstm"){
+    endpoint = "http://localhost:5000/predict_lstm";
+  } else if(selectedModel === "xgboost") {
+    endpoint = "http://localhost:5000/predict_xgb";
+  } else {
+    result.textContent = "❌ Invalid Model Selection";
+    result.style.color = "red";
+    return;
+  }
+
   result.textContent = "⏳ Predicting...";
   result.style.color = "gray";
 
   try {
-    // Replace with your backend URL to predict Bitcoin price
-    const response = await fetch("http://localhost:5000/predict", {
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({})
     });
 
     const data = await response.json();
+
     if (data.predicted_price) {
       result.textContent = `💰 Predicted Close Price: $${parseFloat(data.predicted_price).toFixed(2)}`;
       result.style.color = "green";
+    } else if(data.error){
+      result.textContent = `❌ Error: ${data.error}`;
+      result.style.color = "red";
     } else {
-      result.textContent = `❌ Error: ${data.error || "Unexpected error"}`;
+      result.textContent = "❌ Unexpected error occurred.";
       result.style.color = "red";
     }
 

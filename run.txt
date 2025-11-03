@@ -1,10 +1,12 @@
+# === Start Backend ===
 cd backend
-pip install -r requirements.txt
 python train_lstm.py
-python app.py
+python train_xgb.py
+python app.py &  # Run Flask server in background
 
-cd fronted
-python -m http.server 8000
+# === Start Frontend ===
+cd ../frontend
+python -m http.server 8000 &  # Run frontend server in background
 
-In Browser http://localhost:8000/index.html
-
+# === Open in Browser ===
+open http://localhost:8000/index.html

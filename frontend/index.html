@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Crypto Price Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Crypto Price bitcoin-prediction</title>
+  <link rel="stylesheet" href="style.css"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <h1>Crypto Price Tracker</h1>
-
-  <table>
+  <h1>Real Time Data Extraction and Prediction of Cryptocurrency</h1>
+   <div id="model-selection" style="margin-bottom: 20px;">
+    <label for="model-select">Choose Prediction Model: </label>
+    <select id="model-select">
+      <option value="lstm">LSTM</option>
+      <option value="xgboost">XGBoost</option>
+    </select>
+  </div>
+    <table>
     <thead>
       <tr>
         <th>No</th>
@@ -34,6 +40,6 @@
   </div>
 
   <script src="api_connection.js"></script>
-
 </body>
 </html>
+

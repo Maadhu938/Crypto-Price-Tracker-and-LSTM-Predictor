@@ -1,7 +1,9 @@
 flask
 flask-cors
-requests
+tensorflow
 numpy
 pandas
 scikit-learn
-tensorflow
+xgboost
+joblib
+requests
