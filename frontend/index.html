@@ -1,45 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Crypto Price bitcoin-prediction</title>
-  <link rel="stylesheet" href="style.css"/>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-Time Crypto Prediction System</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
-  <h1>Real Time Data Extraction and Prediction of Cryptocurrency</h1>
-   <div id="model-selection" style="margin-bottom: 20px;">
-    <label for="model-select">Choose Prediction Model: </label>
-    <select id="model-select">
-      <option value="lstm">LSTM</option>
-      <option value="xgboost">XGBoost</option>
-    </select>
-  </div>
-    <table>
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>Coin</th>
-        <th>Price + 7d Trend</th>
-        <th>24h %</th>
-      </tr>
-    </thead>
-    <tbody id="crypto-body"></tbody>
-  </table>
+    <h1 class="title">Real-Time Cryptocurrency Prediction System Using LSTM & XGBoost</h1>
 
-  <div id="pagination">
-    <button id="prev-btn">Prev</button>
-    <span id="page-number">1</span>
-    <button id="next-btn">Next</button>
-  </div>
+    <!-- Prediction Card -->
+    <div class="prediction-card">
 
-  <div id="bitcoin-prediction">
-    <button id="predict-btn">Predict Bitcoin Price</button>
-    <div id="prediction-result"></div>
-  </div>
+        <h2 class="section-title">Bitcoin Price Prediction</h2>
 
-  <script src="api_connection.js"></script>
+        <div class="predict-controls">
+            <select id="model-select" class="dropdown">
+                <option value="lstm">LSTM Model</option>
+                <option value="xgboost">XGBoost Model</option>
+            </select>
+
+            <button id="predict-btn" class="predict-btn">Predict Price</button>
+        </div>
+
+        <div id="prediction-result"></div>
+
+        <!-- Hidden chart section -->
+        <div id="chart-section" class="chart-container" style="display:none;">
+            <canvas id="prediction-chart"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Crypto Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price (USD)</th>
+                    <th>Sparkline</th>
+                    <th>24h Change</th>
+                </tr>
+            </thead>
+            <tbody id="crypto-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div id="pagination">
+        <button id="prev-btn">Previous</button>
+        <span id="page-number">1</span>
+        <button id="next-btn">Next</button>
+    </div>
+
+    <script src="api_connection.js"></script>
+
 </body>
 </html>
-
